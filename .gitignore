@@ -1,6 +1,6 @@
-C:\Users\MSI\Desktop\MonitoringGov\__pycache__
-C:\Users\MSI\Desktop\MonitoringGov\models\__pycache__
-C:\Users\MSI\Desktop\MonitoringGov\resources\__pycache__
+__pycache__/
+*.pyc
+
 .venv
 
 instance
