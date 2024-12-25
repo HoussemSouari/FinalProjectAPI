@@ -4,8 +4,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from extensions import db
 from models import PromiseModel, UserModel
 from schemas import PromiseSchema, PromiseUpdateSchema
-
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from resources.decorators import role_required
 
 
 blp = Blueprint("Promises", "promises", description="Operations on promises")

@@ -6,8 +6,9 @@ from models import UserModel, PromiseModel, RegionModel, CategoryModel
 from resources.user import blp as UserBlueprint
 from resources.promise import blp as PromiseBlueprint
 from resources.auth import blp as AuthBlueprint
-from key import secret_key
+import secrets
 
+secret_key = secrets.token_hex(32)
 app = Flask(__name__)
 
 # Configuration
