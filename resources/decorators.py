@@ -16,8 +16,10 @@ def role_required(role):
             user = UserModel.query.get(user_id)
             if user is None:
                 abort(401, message="User not found.")
-            if user.role.slug != role:
+            if user.roles.slug != role:
                 abort(403, message="Forbidden: You do not have the required role.")
             return fn(*args, **kwargs)
+        wrapper.__name__ = fn.__name__
+
         return wrapper
     return decorator

@@ -6,6 +6,8 @@ from werkzeug.security import generate_password_hash
 from extensions import db
 from models.user import UserModel, Role
 from schemas import UserSchema , UserUpdateSchema
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from resources.decorators import role_required
 
 blp = Blueprint("Users","users",description="Operations on users")
 

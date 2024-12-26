@@ -13,11 +13,15 @@ blp = Blueprint("Promises", "promises", description="Operations on promises")
 
 @blp.route("/promise")
 class PromiseList(MethodView):
+    @jwt_required()
+    @role_required(["admin","normal-user"])
     @blp.response(200, PromiseSchema(many=True))
     def get(self):
         """Retrieve all promises"""
         return PromiseModel.query.all()
 
+    @jwt_required()
+    @role_required('admin')
     @blp.arguments(PromiseSchema)
     @blp.response(201, PromiseSchema)
     def post(self, promise_data):
@@ -33,6 +37,8 @@ class PromiseList(MethodView):
 
 @blp.route("/promise/<int:promise_id>")
 class Promise(MethodView):
+    @jwt_required()
+    @role_required(["admin","normal-user"])
     @blp.response(200, PromiseSchema)
     def get(self, promise_id):
         """Retrieve a single promise by ID."""
@@ -41,6 +47,9 @@ class Promise(MethodView):
             abort(404, message="Promise not found.")
         return promise
     
+
+    @jwt_required()
+    @role_required('admin')
     @blp.response(200,PromiseSchema)
     def delete(self,promise_id):
         "Delete a promise by id"
@@ -54,7 +63,8 @@ class Promise(MethodView):
             abort(500, message="An error occurred while deleting the promise.")
         return {"message": "Promise deleted successfully."}
     
-
+    @jwt_required()
+    @role_required('admin')
     @blp.arguments(PromiseUpdateSchema)
     @blp.response(200,PromiseSchema)
     def put(self,promise_data,promise_id):
