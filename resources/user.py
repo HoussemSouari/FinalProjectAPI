@@ -9,20 +9,23 @@ from schemas import UserSchema , UserUpdateSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from resources.decorators import role_required
 
-blp = Blueprint("Users","users",description="Operations on users")
+blp = Blueprint("Users","users",description="Operations on users(only for admins)")
 
 
 
 @blp.route("/user/<int:user_id>")
 class User(MethodView):
     @blp.response(200, UserSchema)
+    @jwt_required()
+    @role_required('admin')
     def get(self, user_id):
         """Retrieve a single user by ID."""
         user = UserModel.query.get(user_id)
         if not user:
             abort(404, message="User not found.")
         return user
-
+    @jwt_required()
+    @role_required('admin')
     @blp.response(200, UserSchema)
     def delete(self, user_id):
         """Delete a user by ID."""
@@ -35,7 +38,8 @@ class User(MethodView):
         except SQLAlchemyError:
             abort(500, message="An error occurred while deleting the user.")
         return {"message": "User deleted successfully."}
-    
+    @jwt_required()
+    @role_required('admin')
     @blp.arguments(UserUpdateSchema)
     @blp.response(200, UserSchema)
     def put(self, user_data, user_id):
@@ -67,26 +71,26 @@ class User(MethodView):
 
 @blp.route("/user")
 class UserList(MethodView):
+    @jwt_required()
+    @role_required('admin')
     @blp.response(200, UserSchema(many=True))
     def get(self):
         """Retrieve all users"""
         return UserModel.query.all()
-
+    
+    @jwt_required()
+    @role_required('admin')
     @blp.arguments(UserSchema)
     @blp.response(201, UserSchema)
     def post(self, user_data):
-        """Create a new user"""
-        role = Role.query.get(user_data.get("role_id"))
-        if not role:
-            abort(400, message="Role with the given ID does not exist.")
-
+        """Create a new admin"""
         hashed_password = generate_password_hash(user_data['password'])
         user = UserModel(
             name=user_data['name'],
             email=user_data['email'],
             password=hashed_password,
             age=user_data['age'],
-            role_id=user_data['role_id'] 
+            role_id=1 
         )
 
         try:

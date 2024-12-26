@@ -14,8 +14,6 @@ blp = Blueprint("Categories","categories", description="Operations on categories
 
 @blp.route("/category")
 class CategoryList(MethodView):
-    @jwt_required()
-    @role_required(["admin","normal-user"])
     @blp.response(200, CategorySchema(many=True))
     def get(self):
         """Retrieve all categories"""
@@ -26,7 +24,7 @@ class CategoryList(MethodView):
     @blp.arguments(CategorySchema)
     @blp.response(201, CategorySchema)
     def post(self, category_data):
-        """Create a category"""
+        """Create a category(admins only)"""
         category = CategoryModel(**category_data)
         try:
             db.session.add(category)
@@ -37,8 +35,7 @@ class CategoryList(MethodView):
     
 @blp.route("/category/<int:category_id>")
 class Category(MethodView):
-    @jwt_required()
-    @role_required(["admin","normal-user"])
+
     @blp.response(200, CategorySchema)
     def get(self, category_id):
         """Retrieve a category by id"""
@@ -51,7 +48,7 @@ class Category(MethodView):
     @blp.arguments(CategoryUpdateSchema)
     @blp.response(200, CategorySchema)
     def put(self, category_data, category_id):
-        """Update a category by id"""
+        """Update a category by id(admins only)"""
         category = CategoryModel.query.get_or_404(category_id)
         for key, value in category_data.items():
             setattr(category, key, value)
