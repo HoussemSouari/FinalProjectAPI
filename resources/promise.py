@@ -35,6 +35,8 @@ class PromiseList(MethodView):
         return promise
     
 
+    
+
 @blp.route("/promise/<int:promise_id>")
 class Promise(MethodView):
     @jwt_required()

@@ -6,6 +6,7 @@ from models import UserModel, PromiseModel, RegionModel, CategoryModel
 from resources.user import blp as UserBlueprint
 from resources.promise import blp as PromiseBlueprint
 from resources.auth import blp as AuthBlueprint
+from resources.category import blp as CategoryBlueprint
 import secrets
 
 secret_key = secrets.token_hex(32)
@@ -35,6 +36,7 @@ api = Api(app)
 api.register_blueprint(UserBlueprint)
 api.register_blueprint(PromiseBlueprint)
 api.register_blueprint(AuthBlueprint)
+api.register_blueprint(CategoryBlueprint)
 
 
 # Function to populate the database with initial data
