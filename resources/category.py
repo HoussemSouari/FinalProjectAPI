@@ -57,3 +57,18 @@ class Category(MethodView):
             except SQLAlchemyError:
                 abort(500, message="An error occurred while updating the category.")
         return category
+    
+    @jwt_required()
+    @role_required('admin')
+    @blp.response(200, CategorySchema)
+    def delete(self,category_id):
+        """Delete a category by id(admins only)"""
+        category = CategoryModel.query.get_or_404(category_id)
+        if not category:
+            abort(404, message="Category not found.")
+        try:
+            db.session.delete(category)
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="An error occurred while deleting the category.")
+        return {"message": "Category deleted successfully."}
