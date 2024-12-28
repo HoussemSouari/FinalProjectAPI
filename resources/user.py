@@ -24,6 +24,8 @@ class User(MethodView):
         if not user:
             abort(404, message="User not found.")
         return user
+    
+    
     @jwt_required()
     @role_required('admin')
     @blp.response(200, UserSchema)
@@ -38,6 +40,8 @@ class User(MethodView):
         except SQLAlchemyError:
             abort(500, message="An error occurred while deleting the user.")
         return {"message": "User deleted successfully."}
+    
+
     @jwt_required()
     @role_required('admin')
     @blp.arguments(UserUpdateSchema)

@@ -6,7 +6,7 @@ class UserSchema(Schema):
     name = fields.Str()
     email = fields.Str()
     password = fields.Str(required=True,load_only=True)
-    age = fields.Str(required=True)
+    age = fields.Int(required=True)
     role_id = fields.Int()
 
 
@@ -16,8 +16,8 @@ class PromiseSchema(Schema):
     description = fields.Str()  
     title = fields.Str()  
     user_id = fields.Int()  
-    category_id = fields.Int()  
-    region_id = fields.Int()  
+    category_name = fields.String(attribute='category.name', dump_only=True)
+    region_name = fields.String(attribute='region.name', dump_only=True)
 
 
 class PromiseUpdateSchema(Schema):

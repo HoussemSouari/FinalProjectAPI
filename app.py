@@ -7,12 +7,16 @@ from resources.user import blp as UserBlueprint
 from resources.promise import blp as PromiseBlueprint
 from resources.auth import blp as AuthBlueprint
 from resources.category import blp as CategoryBlueprint
+from resources.region import blp as RegionBlueprint
 import secrets
+
+from flask_cors import CORS
 
 
 
 secret_key = secrets.token_hex(32)
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 
 # Configuration
@@ -40,6 +44,7 @@ api.register_blueprint(UserBlueprint)
 api.register_blueprint(PromiseBlueprint)
 api.register_blueprint(AuthBlueprint)
 api.register_blueprint(CategoryBlueprint)
+api.register_blueprint(RegionBlueprint)
 
 
 # Function to populate the database with initial data

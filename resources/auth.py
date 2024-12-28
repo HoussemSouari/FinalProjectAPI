@@ -58,7 +58,9 @@ class Login(MethodView):
             abort(401, message="Invalid credentials.")
 
         access_token = create_access_token(identity=str(user.id))
-        return {"access_token": access_token}, 200
+        is_admin = True if user.id==1 else False 
+        return {"access_token": access_token,
+                "isAdmin":is_admin}, 200
     
 @blp.route("/logout")
 class Logout(MethodView):
