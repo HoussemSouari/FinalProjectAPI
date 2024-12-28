@@ -4,7 +4,7 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, create_refresh_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, create_refresh_token, get_jti
 from extensions import db
 from models.user import UserModel,Role
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -12,6 +12,8 @@ from schemas import UserSchema
 from resources.decorators import role_required
 
 blp = Blueprint("Auth", "auth", description="Authentication operations")
+revoked_tokens = set()
+
 
 @blp.route("/signup")
 class SignUp(MethodView):
@@ -57,6 +59,15 @@ class Login(MethodView):
 
         access_token = create_access_token(identity=str(user.id))
         return {"access_token": access_token}, 200
+    
+@blp.route("/logout")
+class Logout(MethodView):
+    @jwt_required()
+    def post(self):
+        """Logout by revoking the token"""
+        jti = get_jti(request.headers.get("Authorization").split()[1])  # Get the unique identifier of the token
+        revoked_tokens.add(jti)
+        return {"message": "Token has been revoked."}, 200
 
 @blp.route("/protected")
 class Protected(MethodView):
@@ -75,3 +86,11 @@ class Protected(MethodView):
 
         return user_data , 200
     
+# Middleware to check revoked tokens
+def is_token_revoked(jwt_header, jwt_payload):
+    jti = jwt_payload["jti"]
+    return jti in revoked_tokens
+
+from flask_jwt_extended import JWTManager
+jwt = JWTManager()
+jwt.token_in_blocklist_loader(is_token_revoked)

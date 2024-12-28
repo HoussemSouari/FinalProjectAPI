@@ -9,8 +9,11 @@ from resources.auth import blp as AuthBlueprint
 from resources.category import blp as CategoryBlueprint
 import secrets
 
+
+
 secret_key = secrets.token_hex(32)
 app = Flask(__name__)
+
 
 # Configuration
 app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -69,6 +72,6 @@ def populate_db():
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()  # Creates tables if they don't exist
-        populate_db()    # Populate the database with initial data
+        db.create_all()  
+        populate_db()    
     app.run(debug=True)

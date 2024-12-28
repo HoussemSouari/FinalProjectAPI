@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 from extensions import db
-from models import PromiseModel, UserModel
+from models import PromiseModel, UserModel, CategoryModel, RegionModel
 from schemas import PromiseSchema, PromiseUpdateSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from resources.decorators import role_required
@@ -44,6 +44,32 @@ class Promise(MethodView):
         if not promise:
             abort(404, message="Promise not found.")
         return promise
+    
+@blp.route("/promise/category/<string:category_name>")
+class PromisesByCategory(MethodView):
+    @blp.response(200, PromiseSchema(many=True))
+    def get(self, category_name):
+        """Retrieve promises by category name"""
+        category = CategoryModel.query.filter_by(name=category_name).first()
+        if not category:
+            abort(404, message="Category not found.")
+        
+        promises = PromiseModel.query.filter_by(category_id=category.id).all()
+        return promises
+    
+@blp.route("/promise/region/<string:region_name>")
+class PromisesByRegion(MethodView):
+    @blp.response(200, PromiseSchema(many=True))
+    def get(self, region_name):
+        """Retrieve promises by region name"""
+        region = RegionModel.query.filter_by(name=region_name).first()
+        if not region:
+            abort(404, message="Region not found.")
+        
+        promises = PromiseModel.query.filter_by(region_id=region.id).all()
+        return promises
+    
+
     
 
     @jwt_required()
