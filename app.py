@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
-from extensions import db
+from extensions import db , migrate
 from models import UserModel, PromiseModel, RegionModel, CategoryModel
 from resources.user import blp as UserBlueprint
 from resources.promise import blp as PromiseBlueprint
@@ -37,6 +37,7 @@ jwt = JWTManager(app)
 
 
 db.init_app(app)
+migrate.init_app(app,db)
 api = Api(app)
 
 # Register Blueprints
@@ -47,36 +48,8 @@ api.register_blueprint(CategoryBlueprint)
 api.register_blueprint(RegionBlueprint)
 
 
-# Function to populate the database with initial data
-def populate_db():
-    """Populate the database with initial data."""
-    # Populate Regions if empty
-
-    if RegionModel.query.count() > 0:
-        db.session.query(RegionModel).delete()
-        db.session.commit()
-
-    if RegionModel.query.count() == 0:
-        regions =  [
-            "Tunis", "Ariana", "Ben Arous", "Bizerte", "Beja", "Jendouba", "Kairouan", "Kasserine", 
-            "Kebili", "Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", 
-            "Siliana", "Sousse", "Tataouine", "Tozeur", "Zaghouan","Gafsa","Gabes"
-        ]
-        for region in regions:
-            db.session.add(RegionModel(name=region))
-        db.session.commit()
-    
-    # Populate Categories if empty
-    if CategoryModel.query.count() == 0:
-        categories = ["Education", "Health", "Infrastructure", "Security"]
-        for category in categories:
-            db.session.add(CategoryModel(name=category))
-        db.session.commit()
-    
-
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()  
-        populate_db()    
     app.run(debug=True)

@@ -19,3 +19,15 @@ class RegionList(MethodView):
             return regions
         except SQLAlchemyError:
             abort(500, message="An error occurred while retrieving regions.")
+
+@blp.route("/region/<int:region_id>")
+class Region(MethodView):
+
+    @blp.response(200, RegionSchema)
+    def get(self, region_id):
+        """Retrieve a region by id"""
+        try:
+            region = RegionModel.query.get_or_404(region_id)
+            return region
+        except SQLAlchemyError:
+            abort(500, message="An error occurred while retrieving the region.")

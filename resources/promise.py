@@ -3,7 +3,7 @@ from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 from extensions import db
 from models import PromiseModel, UserModel, CategoryModel, RegionModel
-from schemas import PromiseSchema, PromiseUpdateSchema
+from schemas import PromiseSchema, PromiseUpdateSchema, ReturnPromiseSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from resources.decorators import role_required
 
@@ -13,7 +13,7 @@ blp = Blueprint("Promises", "promises", description="Operations on promises")
 
 @blp.route("/promise")
 class PromiseList(MethodView):
-    @blp.response(200, PromiseSchema(many=True))
+    @blp.response(200, ReturnPromiseSchema(many=True))
     def get(self):
         """Retrieve all promises"""
         return PromiseModel.query.all()
@@ -37,7 +37,7 @@ class PromiseList(MethodView):
 
 @blp.route("/promise/<int:promise_id>")
 class Promise(MethodView):
-    @blp.response(200, PromiseSchema)
+    @blp.response(200, ReturnPromiseSchema)
     def get(self, promise_id):
         """Retrieve a single promise by ID."""
         promise = PromiseModel.query.get(promise_id)
@@ -47,7 +47,7 @@ class Promise(MethodView):
     
 @blp.route("/promise/category/<string:category_name>")
 class PromisesByCategory(MethodView):
-    @blp.response(200, PromiseSchema(many=True))
+    @blp.response(200, ReturnPromiseSchema(many=True))
     def get(self, category_name):
         """Retrieve promises by category name"""
         category = CategoryModel.query.filter_by(name=category_name).first()
@@ -59,7 +59,7 @@ class PromisesByCategory(MethodView):
     
 @blp.route("/promise/region/<string:region_name>")
 class PromisesByRegion(MethodView):
-    @blp.response(200, PromiseSchema(many=True))
+    @blp.response(200, ReturnPromiseSchema(many=True))
     def get(self, region_name):
         """Retrieve promises by region name"""
         region = RegionModel.query.filter_by(name=region_name).first()

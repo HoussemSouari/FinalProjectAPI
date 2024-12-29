@@ -3,6 +3,8 @@ flask-sqlalchemy
 flask_smorest
 flask-jwt-extended
 python-dotenv
+passlib
+flask-migrate
 flask-cors
 marshmallow
 marshmallow-sqlalchemy
