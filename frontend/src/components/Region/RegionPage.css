@@ -1,0 +1,32 @@
+.region-map {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.categories-container {
+  margin: 20px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.category-card {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-details {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: inline-block;
+}

@@ -1,0 +1,58 @@
+/* Ensure full-height layout for all pages */
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Ensures the body takes full screen height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reset any center alignment that could be causing full-screen issues */
+.add-promise-container {
+  background-color: #f4f4f9;
+  min-height: 100vh; /* Ensures full page height */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Make sure content is aligned at the top */
+}
+
+.add-promise-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto; /* Centers the form, but doesn't affect the full-page layout */
+}
+
+.add-promise-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Modify other page containers to remove centering and allow full-page */
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.page-container .content {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  /* Remove any margin or padding that could affect page layout */
+}
