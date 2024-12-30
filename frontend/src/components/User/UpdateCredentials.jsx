@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './UpdateCredentials.css';
 
 const UpdateCredentials = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,7 +29,7 @@ const UpdateCredentials = () => {
 
     try {
       const response = await axios.put('http://localhost:5000/update', {
-        username,
+        name,
         email,
         password
       },{
@@ -60,8 +60,8 @@ const UpdateCredentials = () => {
           <input
             type="text"
             id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>

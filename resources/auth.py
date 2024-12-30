@@ -51,6 +51,9 @@ class UpdateUser (MethodView):
 
         if not user:
             abort(404, message="User  not found.")
+        
+        if 'name' in user_data :
+            user.name = user_data['name']
 
         # Update email if provided
         if 'email' in user_data:

@@ -1,0 +1,39 @@
+.region-promises {
+    margin-top: 2rem;
+  }
+  
+  .promises-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .promise-card {
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .promise-card h4 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .promise-card p {
+    margin-bottom: 1rem;
+    color: #666;
+  }
+  
+  .btn-details {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  .btn-details:hover {
+    background-color: #0066cc;
+  }

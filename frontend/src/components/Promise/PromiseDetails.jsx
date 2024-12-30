@@ -34,6 +34,11 @@ const PromiseDetails = () => {
         <p className="status"><strong>Status:</strong> {promise.status}</p>
         <p className="category-region"><strong>Category:</strong> {promise.category_name}</p>
         <p className="category-region"><strong>Region:</strong> {promise.region_name}</p>
+        <p className="category-region"><strong>Creation Date:</strong> {promise.created_at}</p>
+        <p className="category-region"><strong>Deadline:</strong> {promise.expected_to_end}</p>
+        <p className="category-region"><strong>Budget:</strong> {promise.budget}</p>
+
+
       </div>
     </div>
   );

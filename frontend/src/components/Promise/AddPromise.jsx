@@ -11,6 +11,9 @@ const AddPromise = () => {
     user_id: '1', // Default user_id
     category_id: '',
     region_id: '',
+    created_at:'',
+    expected_to_end:'',
+    budget:'',
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -144,6 +147,37 @@ const AddPromise = () => {
             onChange={handleChange}
             required
             placeholder="Enter region Name"
+          />
+        </div>
+        <div>
+          <label>Creation Date</label>
+          <input type="date"
+          name="created_at"
+          value={promiseData.created_at}
+          onChange={handleChange}
+          required
+          placeholder='Enter a Date'
+           />
+        </div>
+        <div>
+          <label>Deadline Date</label>
+          <input type="date"
+          name="expected_to_end"
+          value={promiseData.expected_to_end}
+          onChange={handleChange}
+          required
+          placeholder='Enter a Date'
+           />
+        </div>
+        <div>
+          <label>Budget:</label>
+          <input
+            type="number"
+            name="budget"
+            value={promiseData.budget}
+            onChange={handleChange}
+            required
+            placeholder="Enter The Budget"
           />
         </div>
 
