@@ -8,3 +8,5 @@ instance
 FinalProject.drawio
 
 migrations
+
+frontend/node_modules

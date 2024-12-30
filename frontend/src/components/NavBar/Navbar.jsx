@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css'; 
+import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,7 +11,9 @@ const Navbar = () => {
     localStorage.removeItem('access_token');
     navigate('/'); 
   };
-
+  const goToProfile = () => {
+    navigate('/profile');  // Redirect to the profile page
+  };
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -27,7 +30,17 @@ const Navbar = () => {
         )}
         {isLoggedIn && (
           <button onClick={handleLogout} className="navbar-item">Logout</button>
+
         )}
+          {isLoggedIn && (
+          <div 
+            className="navbar-item profile-icon" 
+            onClick={goToProfile} // Redirect to the profile page when clicked
+          >
+            <FaUserCircle size={30} />
+          </div>
+        )}
+
       </div>
     </nav>
   );

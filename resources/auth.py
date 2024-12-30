@@ -38,6 +38,34 @@ class SignUp(MethodView):
             abort(500, message="An error occurred while creating the user.")
 
         return user
+    
+@blp.route("/update")
+class UpdateUser (MethodView):
+    @jwt_required()
+    @blp.arguments(UserSchema(partial=True))  # Allow partial updates
+    @blp.response(200, UserSchema)
+    def put(self, user_data):
+        """Update user's email or password"""
+        user_id = get_jwt_identity()
+        user = UserModel.query.get(user_id)
+
+        if not user:
+            abort(404, message="User  not found.")
+
+        # Update email if provided
+        if 'email' in user_data:
+            user.email = user_data['email']
+
+        # Update password if provided
+        if 'password' in user_data:
+            user.password = generate_password_hash(user_data['password'])
+
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="An error occurred while updating the user.")
+
+        return user, 200
 
 @blp.route("/login")
 class Login(MethodView):
@@ -58,7 +86,7 @@ class Login(MethodView):
             abort(401, message="Invalid credentials.")
 
         access_token = create_access_token(identity=str(user.id))
-        is_admin = True if user.id==1 else False 
+        is_admin = True if user.role_id==1 else False 
         return {"access_token": access_token,
                 "isAdmin":is_admin}, 200
     
@@ -74,7 +102,7 @@ class Logout(MethodView):
 @blp.route("/protected")
 class Protected(MethodView):
     @jwt_required() 
-    @role_required('admin') 
+     
     def get(self):
         """Get the current user's information"""
         user_id = get_jwt_identity()
