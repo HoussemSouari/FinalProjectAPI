@@ -42,6 +42,8 @@ class RegionSchema(Schema):
     name = fields.Str(required=True)  
     latitude = fields.Float(required=True)  
     longitude = fields.Float(required=True)
+
+
 class CategorySchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)

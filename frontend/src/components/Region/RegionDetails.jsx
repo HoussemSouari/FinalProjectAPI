@@ -77,7 +77,6 @@ const RegionDetails = () => {
             {promises.map((promise) => (
               <div className="promise-card" key={promise.id}>
                 <h4>{promise.title}</h4>
-                <p>{promise.description}</p>
                 <Link to={`/promise/${promise.id}`} className="btn-details">
                   View Details
                 </Link>
