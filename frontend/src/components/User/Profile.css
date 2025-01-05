@@ -22,7 +22,7 @@
   
   .btn-update {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #0066cc;
     color: white;
     border: none;
     border-radius: 4px;
@@ -30,7 +30,7 @@
   }
   
   .btn-update:hover {
-    background-color: #45a049;
+    background-color: #0e87ff;
   }
   
   /* Profile Icon in Navbar */

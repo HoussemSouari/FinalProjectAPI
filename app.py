@@ -9,9 +9,14 @@ from resources.auth import blp as AuthBlueprint
 from resources.category import blp as CategoryBlueprint
 from resources.region import blp as RegionBlueprint
 import secrets
+from apispec.ext.marshmallow import MarshmallowPlugin
+
 
 from flask_cors import CORS
 
+def schema_name_resolver(schema):
+    """Resolve schema names uniquely."""
+    return schema.__class__.__name__
 
 
 secret_key = secrets.token_hex(32)
@@ -39,6 +44,7 @@ jwt = JWTManager(app)
 db.init_app(app)
 migrate.init_app(app,db)
 api = Api(app)
+
 
 # Register Blueprints
 api.register_blueprint(UserBlueprint)

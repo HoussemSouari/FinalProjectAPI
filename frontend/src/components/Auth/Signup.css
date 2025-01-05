@@ -41,7 +41,7 @@
   }
   
   .signup-input:focus {
-    border-color: #4CAF50;
+    border-color: #0066cc;
   }
   
   /* Error message styling */
@@ -53,7 +53,7 @@
   
   /* Button styling */
   .signup-button {
-    background-color: #4CAF50;
+    background-color: #0066cc;
     color: white;
     padding: 10px;
     border: none;
@@ -64,7 +64,7 @@
   }
   
   .signup-button:hover {
-    background-color: #45a049;
+    background-color: #0e87ff;
   }
   
   /* Login link styling */
@@ -74,7 +74,7 @@
   }
   
   .login-link a {
-    color: #4CAF50;
+    color: #0066cc;
     text-decoration: none;
   }
   

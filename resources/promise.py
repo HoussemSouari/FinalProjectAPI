@@ -44,34 +44,6 @@ class Promise(MethodView):
         if not promise:
             abort(404, message="Promise not found.")
         return promise
-    
-@blp.route("/promise/category/<int:category_id>")
-class PromisesByCategory(MethodView):
-    @blp.response(200, ReturnPromiseSchema(many=True))
-    def get(self, category_id):
-        """Retrieve promises by category ID"""
-        category = CategoryModel.query.filter_by(id=category_id).first()
-        if not category:
-            abort(404, message="Category not found.")
-        
-        promises = PromiseModel.query.filter_by(category_id=category.id).all()
-        return promises
-
-@blp.route("/promise/region/<int:region_id>")
-class PromisesByRegion(MethodView):
-    @blp.response(200, ReturnPromiseSchema(many=True))
-    def get(self, region_id):
-        """Retrieve promises by region ID"""
-        region = RegionModel.query.filter_by(id=region_id).first()
-        if not region:
-            abort(404, message="Region not found.")
-        
-        promises = PromiseModel.query.filter_by(region_id=region.id).all()
-        return promises
-    
-
-    
-
     @jwt_required()
     @role_required('admin')
     @blp.response(200,PromiseSchema)
@@ -106,5 +78,34 @@ class PromisesByRegion(MethodView):
             abort(500, message="An error occurred while updating the promise.")
 
         return promise
+
+    
+@blp.route("/promise/category/<int:category_id>")
+class PromisesByCategory(MethodView):
+    @blp.response(200, ReturnPromiseSchema(many=True))
+    def get(self, category_id):
+        """Retrieve promises by category ID"""
+        category = CategoryModel.query.filter_by(id=category_id).first()
+        if not category:
+            abort(404, message="Category not found.")
+        
+        promises = PromiseModel.query.filter_by(category_id=category.id).all()
+        return promises
+
+@blp.route("/promise/region/<int:region_id>")
+class PromisesByRegion(MethodView):
+    @blp.response(200, ReturnPromiseSchema(many=True))
+    def get(self, region_id):
+        """Retrieve promises by region ID"""
+        region = RegionModel.query.filter_by(id=region_id).first()
+        if not region:
+            abort(404, message="Region not found.")
+        
+        promises = PromiseModel.query.filter_by(region_id=region.id).all()
+        return promises
+    
+
+    
+
 
 

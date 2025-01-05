@@ -13,15 +13,22 @@ class ReturnPromiseSchema(Schema) :
     id = fields.Int(dump_only=True)
     status = fields.Str()
     description = fields.Str()  
-    title = fields.Str() 
+    title = fields.Str()
+    created_at=fields.Date()
+    expected_to_end=fields.Date()
+    budget=fields.Float() 
     category_name = fields.String(attribute='category.name', dump_only=True)
     region_name = fields.String(attribute='region.name', dump_only=True)  
+
 
 class PromiseSchema(Schema):
     id = fields.Int(dump_only=True) 
     status = fields.Str()
     description = fields.Str()  
     title = fields.Str()  
+    created_at=fields.Date()
+    expected_to_end=fields.Date()
+    budget=fields.Float()
     user_id = fields.Int() 
     category_id = fields.Int()
     region_id = fields.Int() 
@@ -36,6 +43,8 @@ class RegionSchema(Schema):
     name = fields.Str(required=True)  
     latitude = fields.Float(required=True)  
     longitude = fields.Float(required=True)
+
+
 class CategorySchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)

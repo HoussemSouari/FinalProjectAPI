@@ -84,14 +84,14 @@
     display: inline-block;
     margin-top: 10px;
     padding: 8px 16px;
-    background-color: #4CAF50;
+    background-color: #0066cc;
     color: white;
     text-decoration: none;
     border-radius: 5px;
   }
   
   .btn-details:hover {
-    background-color: #45a049;
+    background-color: #0066cc;
   }
   
   .btn-add {

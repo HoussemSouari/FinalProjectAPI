@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import './RegionPage.css';  // Importing the CSS file
+import './RegionDetails.css';  // Importing the CSS file
 import Navbar from '../NavBar/NavBar';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -9,18 +9,32 @@ import 'leaflet/dist/leaflet.css';
 const RegionDetails = () => {
   const { regionId } = useParams(); // Get the region ID from the URL
   const [region, setRegion] = useState(null);
+  const [promises, setPromises] = useState([]);
 
+  // Fetch region details
   useEffect(() => {
     const fetchRegion = async () => {
       try {
-        // Fetch region details by ID
         const response = await axios.get(`http://localhost:5000/region/${regionId}`);
-        setRegion(response.data); // Set the region data
+        setRegion(response.data);
       } catch (err) {
         console.error('Error fetching region details:', err);
       }
     };
     fetchRegion();
+  }, [regionId]);
+
+  // Fetch promises related to the region
+  useEffect(() => {
+    const fetchPromises = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/promise/region/${regionId}`);
+        setPromises(response.data);
+      } catch (err) {
+        console.error('Error fetching promises for the region:', err);
+      }
+    };
+    fetchPromises();
   }, [regionId]);
 
   if (!region) {
@@ -51,6 +65,25 @@ const RegionDetails = () => {
             </Marker>
           </MapContainer>
         </div>
+      </div>
+
+      {/* Display promises related to the region */}
+      <div className="region-promises">
+        <h3>Promises in {region.name}</h3>
+        {promises.length === 0 ? (
+          <p>No promises found for this region.</p>
+        ) : (
+          <div className="promises-list">
+            {promises.map((promise) => (
+              <div className="promise-card" key={promise.id}>
+                <h4>{promise.title}</h4>
+                <Link to={`/promise/${promise.id}`} className="btn-details">
+                  View Details
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
