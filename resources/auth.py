@@ -42,7 +42,7 @@ class SignUp(MethodView):
 @blp.route("/update")
 class UpdateUser (MethodView):
     @jwt_required()
-    @blp.arguments(UserSchema(partial=True))  # Allow partial updates
+    @blp.arguments(UserSchema(partial=True)) 
     @blp.response(200, UserSchema)
     def put(self, user_data):
         """Update user's email or password"""
@@ -51,12 +51,13 @@ class UpdateUser (MethodView):
 
         if not user:
             abort(404, message="User  not found.")
+        
+        if 'name' in user_data :
+            user.name = user_data['name']
 
-        # Update email if provided
         if 'email' in user_data:
             user.email = user_data['email']
 
-        # Update password if provided
         if 'password' in user_data:
             user.password = generate_password_hash(user_data['password'])
 
@@ -66,6 +67,39 @@ class UpdateUser (MethodView):
             abort(500, message="An error occurred while updating the user.")
 
         return user, 200
+    
+
+
+@blp.route("/delete")
+class Delete(MethodView):
+    @jwt_required()
+    def delete(self):
+        """Delete user account"""
+        user_id = get_jwt_identity()
+        user = UserModel.query.get(user_id)
+
+        if not user:
+            abort(404, message="User not found.")
+        
+        password = request.json.get("password", None)
+
+        if not password:
+            abort(400, message="Password is required to delete the account.")
+        
+        if not check_password_hash(user.password, password):
+            abort(401, message="Invalid password.")
+
+        try:
+            db.session.delete(user)
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="An error occurred while deleting the user.")
+        
+        return {"message": "User account has been deleted successfully."}, 200
+
+
+
+
 
 @blp.route("/login")
 class Login(MethodView):
