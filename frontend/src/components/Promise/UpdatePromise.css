@@ -1,0 +1,117 @@
+.update-promise-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.update-promise-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.update-promise-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-promise-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.update-promise-form input,
+.update-promise-form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.update-promise-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.update-promise-form button.update {
+    background-color: #007bff;
+    color: white;
+}
+
+.update-promise-form button.update:hover {
+    background-color: #0056b3;
+}
+
+.update-promise-form button.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.update-promise-form button.delete:hover {
+    background-color: #c82333;
+}
+
+.update-promise-form button.cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.update-promise-form button.cancel:hover {
+    background-color: #5a6268;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.confirmation-popup {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-popup p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.confirmation-popup button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin: 0 10px;
+}
+
+.confirmation-popup button.confirm {
+    background-color: #28a745;
+    color: white;
+}
+
+.confirmation-popup button.confirm:hover {
+    background-color: #218838;
+}
+
+.confirmation-popup button.cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+.confirmation-popup button.cancel:hover {
+    background-color: #c82333;
+}

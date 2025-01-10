@@ -8,7 +8,7 @@ const AddPromise = () => {
     title: '',
     description: '',
     status: 'Pending',
-    user_id: '1', // Default user_id
+    user_id: '1', 
     category_id: '',
     region_id: '',
     created_at:'',

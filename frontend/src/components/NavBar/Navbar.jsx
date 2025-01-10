@@ -6,14 +6,21 @@ import { FaUserCircle } from 'react-icons/fa';
 const Navbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem('access_token'); 
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     navigate('/'); 
   };
+
   const goToProfile = () => {
-    navigate('/profile');  // Redirect to the profile page
+    if (isAdmin) {
+      navigate('/dashboard');
+    } else {
+      navigate('/profile');
+    }
   };
+
   return (
     <nav className="navbar">
       <div className="navbar-left">

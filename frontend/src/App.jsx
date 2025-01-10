@@ -12,6 +12,9 @@ import RegionDetails from './components/Region/RegionDetails';
 import UpdateCredentials from './components/User/UpdateCredentials';
 import Profile from './components/User/Profile';
 import CategoryDetailsPage from './components/Category/CategoryDetails';
+import Dashboard from './components/Admin/Dashboard';
+import DeletePromise from './components/Promise/DeletePromise';
+import UpdatePromise from './components/Promise/UpdatePromise';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
         <Route path="/region/:regionId" element={<RegionDetails />} />
         <Route path="/promise/:id" element={<PromiseDetails />} />
         <Route path="/promise/add" element={<AddPromise/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/promise/delete' element={<DeletePromise/>}/>
+        <Route path='/promise/update' element={<UpdatePromise/>}/>
       </Routes>
     </Router>
   );

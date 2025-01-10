@@ -26,8 +26,10 @@ const PromiseDetails = () => {
   }
 
   return (
+    <div>
+         <Navbar/>
     <div className="promise-details-container">
-      <Navbar/>
+   
       <div className="promise-details-card">
         <h2>{promise.title}</h2>
         <p><strong>Description:</strong> {promise.description}</p>
@@ -40,6 +42,7 @@ const PromiseDetails = () => {
 
 
       </div>
+    </div>
     </div>
   );
 };

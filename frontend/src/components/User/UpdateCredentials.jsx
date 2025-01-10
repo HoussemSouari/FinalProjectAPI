@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './UpdateCredentials.css';
+import Navbar from '../NavBar/NavBar';
 
 const UpdateCredentials = () => {
   const [name, setName] = useState('');
@@ -50,6 +51,8 @@ const UpdateCredentials = () => {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="update-credentials">
       <h2>Update Your Credentials</h2>
       {error && <p className="error-message">{error}</p>}
@@ -101,6 +104,8 @@ const UpdateCredentials = () => {
 
         <button type="submit" className="btn-update">Update</button>
       </form>
+    </div>
+
     </div>
   );
 };

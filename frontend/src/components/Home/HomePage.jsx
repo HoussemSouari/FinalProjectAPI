@@ -6,9 +6,7 @@ import Navbar from '../NavBar/NavBar';
 
 const HomePage = () => {
   const [promises, setPromises] = useState([]);
-  const navigate = useNavigate();
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
-  const isLoggedIn = localStorage.getItem('access_token'); 
+
 
 
   // Fetch all promises on component mount
@@ -49,12 +47,6 @@ const HomePage = () => {
           )}
         </div>
 
-        {/* Show 'Add New Promise' button only for admins */}
-        {isAdmin && isLoggedIn &&(
-          <Link to={`/promise/add`}>
-            <button className="btn-add">Add New Promise</button>
-          </Link>
-        )}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Profile.css';
 import axios from 'axios';
+import Navbar from '../NavBar/NavBar';
 
 const Profile = () => {
     const [userInfo, setUserInfo] = useState({});
@@ -30,6 +31,8 @@ const Profile = () => {
 },[]);
 
   return (
+    <div>
+      <Navbar />
     <div className="profile-container">
       <h2>User Profile</h2>
       <div className="profile-info">
@@ -43,6 +46,7 @@ const Profile = () => {
           <button className="btn-update">Update Your Information</button>
         </Link>
       </div>
+    </div>
     </div>
   );
 };
