@@ -45,6 +45,16 @@ db.init_app(app)
 migrate.init_app(app,db)
 api = Api(app)
 
+api.spec.components.security_scheme(
+    "BearerAuth",
+    {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",  # Optional
+    },
+)
+api.spec.options["security"] = [{"BearerAuth": []}] 
+
 
 # Register Blueprints
 api.register_blueprint(UserBlueprint)

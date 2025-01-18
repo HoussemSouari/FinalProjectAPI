@@ -72,8 +72,10 @@ class UpdateUser (MethodView):
 
 @blp.route("/delete")
 class Delete(MethodView):
+    @blp.arguments(UserSchema(only=["password"]))
+    @blp.response(200)
     @jwt_required()
-    def delete(self):
+    def delete(self, user_data):
         """Delete user account"""
         user_id = get_jwt_identity()
         user = UserModel.query.get(user_id)
@@ -81,7 +83,7 @@ class Delete(MethodView):
         if not user:
             abort(404, message="User not found.")
         
-        password = request.json.get("password", None)
+        password = user_data.get("password")
 
         if not password:
             abort(400, message="Password is required to delete the account.")
@@ -103,10 +105,12 @@ class Delete(MethodView):
 
 @blp.route("/login")
 class Login(MethodView):
-    def post(self):
+    @blp.arguments(UserSchema(only=["email", "password"]))
+    @blp.response(200)
+    def post(self, user_data):
         """Login and return a JWT token"""
-        email = request.json.get("email", None)
-        password = request.json.get("password", None)
+        email = user_data.get("email")
+        password = user_data.get("password")
         
         if not email or not password:
             abort(400, message="Email and password are required.")
